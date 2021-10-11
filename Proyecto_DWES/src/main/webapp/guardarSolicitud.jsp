@@ -1,17 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="solicitud.datos.SolicitudDAO,solicitud.vo.SolicitudVO,solicitud.vo.HorarioVO"%>  
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@page
+	import="solicitud.datos.SolicitudDAO,solicitud.vo.SolicitudVO,solicitud.vo.HorarioVO"%>
 
 
 
 
 
-  
+
 <%
-
 SolicitudVO solicitud = new SolicitudVO();
-HorarioVO horario= new HorarioVO();
-
-
+HorarioVO horario = new HorarioVO();
 
 solicitud.setNombre(request.getParameter("nombre"));
 solicitud.setDni(request.getParameter("dni"));
@@ -19,15 +18,16 @@ solicitud.setTelefono(Integer.parseInt(request.getParameter("telefono")));
 solicitud.setMateria(request.getParameter("materia"));
 solicitud.setFechaPermiso(request.getParameter("FechaPermiso"));
 solicitud.setMotivo(request.getParameter("motivo"));
-solicitud.setDiaCompleto(Boolean.parseBoolean(request.getParameter("DiaCompleto")));
-solicitud.setDiaNoCompleto(Boolean.parseBoolean(request.getParameter("DiaNoCompleto")));
+solicitud.setDiaCompleto("completo".equals(request.getParameter("Dia")));
+solicitud.setDiaNoCompleto("nocompleto".equals(request.getParameter("Dia")));
 solicitud.setFechaEntrega(request.getParameter("FechaEntrega"));
-solicitud.setConcedido(Boolean.parseBoolean(request.getParameter("concedido")));
-solicitud.setDenegado(Boolean.parseBoolean(request.getParameter("denegado")));
 
-if("diurno".equals(request.getParameter("tipoHorario"))){
+solicitud.setDenegado("denegado".equals(request.getParameter("resolucion")));
+solicitud.setConcedido("concedido".equals(request.getParameter("resolucion")));
+
+if ("diurno".equals(request.getParameter("tipoHorario"))) {
 	horario.setTipo("diurno");
-}else{
+} else {
 	horario.setTipo("nocturno");
 }
 
@@ -47,14 +47,10 @@ horario.setAula6(request.getParameter("aula6"));
 
 solicitud.setHorario(horario);
 
-
-
-
-
-    int i=SolicitudDAO.guardar(solicitud);  
-        if(i>0){  
-        response.sendRedirect("exitoGrabarSolicitud.jsp");  
-        }else{  
-        response.sendRedirect("errorGrabarSolicitud.jsp");  
-        }
-    %>  
+int i = SolicitudDAO.guardar(solicitud);
+if (i > 0) {
+	response.sendRedirect("exitoGrabarSolicitud.jsp");
+} else {
+	response.sendRedirect("errorGrabarSolicitud.jsp");
+}
+%>

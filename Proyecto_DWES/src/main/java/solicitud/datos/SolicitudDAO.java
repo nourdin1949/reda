@@ -52,8 +52,8 @@ public class SolicitudDAO {
 			ps.setString(7,e.getFechaEntrega());
 			ps.setBoolean(8,e.isDiaCompleto());
 			ps.setBoolean(9,e.isDiaNoCompleto());
-			ps.setBoolean(10,e.isConcedido());
-			ps.setBoolean(11,e.isDenegado());
+			ps.setBoolean(11,e.isConcedido());
+			ps.setBoolean(10,e.isDenegado());
 	
 	
 			status=ps.executeUpdate();
@@ -77,7 +77,7 @@ public class SolicitudDAO {
 		int status=0;
 		try{
 			Connection con=SolicitudDAO.getConnection();
-			PreparedStatement ps=con.prepareStatement("update empleados set Nombre=?,DNI=?,Tlf=?,Materia=?,FechaPermiso=?,Motivo=?,FechaEntrega=?,DiaCompleto=?,DiaNocompleto=?,Firma=?,Concedido=?,Denegado=?,Constancias=?,where Id=?");
+			PreparedStatement ps=con.prepareStatement("update Solicitudes set Nombre=?,DNI=?,Tlf=?,Materia=?,FechaPermiso=?,Motivo=?,FechaEntrega=?,DiaCompleto=?,DiaNocompleto=?,Concedido=?,Denegado=? where Id=?");
 			ps.setString(1,e.getNombre());
 			ps.setString(2,e.getDni());
 			ps.setInt(3,e.getTelefono());
@@ -87,11 +87,10 @@ public class SolicitudDAO {
 			ps.setString(7,e.getFechaEntrega());
 			ps.setBoolean(8,e.isDiaCompleto());
 			ps.setBoolean(9,e.isDiaNoCompleto());
-			ps.setString(10,e.getFirma());
-			ps.setBoolean(11,e.isConcedido());
-			ps.setBoolean(12,e.isDenegado());
-			ps.setString(13,e.getConstancias());
-			
+			ps.setBoolean(10,e.isConcedido());
+			ps.setBoolean(11,e.isDenegado());
+		
+			ps.setInt(12, e.getId());
 			status=ps.executeUpdate();
 			
 			con.close();
@@ -135,20 +134,20 @@ public class SolicitudDAO {
 			ps.setInt(1,Id);
 			ResultSet rs=ps.executeQuery();
 			if(rs.next()){
-				
-				e.setNombre(rs.getString(1));
-				e.setDni(rs.getString(2));
-				e.setTelefono(rs.getInt(3));
-				e.setMateria(rs.getString(4));
-				e.setFechaPermiso(rs.getString(5));
-				e.setMotivo(rs.getString(6));
-				e.setFechaEntrega(rs.getString(7));
-				e.setDiaCompleto(rs.getBoolean(8));
-				e.setDiaNoCompleto(rs.getBoolean(9));
-				e.setFirma(rs.getString(10));
-				e.setDenegado(rs.getBoolean(11));
-				e.setConcedido(rs.getBoolean(12));
-				e.setConstancias(rs.getString(13));
+				e.setId(rs.getInt(1));
+				e.setNombre(rs.getString(2));
+				e.setDni(rs.getString(3));
+				e.setTelefono(rs.getInt(4));
+				e.setMateria(rs.getString(5));
+				e.setFechaPermiso(rs.getString(6));
+				e.setMotivo(rs.getString(7));
+				e.setFechaEntrega(rs.getString(8));
+				e.setDiaCompleto(rs.getBoolean(9));
+				e.setDiaNoCompleto(rs.getBoolean(10));
+				e.setFirma(rs.getString(11));
+				e.setDenegado(rs.getBoolean(12));
+				e.setConcedido(rs.getBoolean(13));
+				e.setConstancias(rs.getString(14));
 			
 				
 				
@@ -157,6 +156,7 @@ public class SolicitudDAO {
 		}catch(Exception ex){ex.printStackTrace();}
 		
 		return e;
+		
 	}
 	public static List<SolicitudVO> obtenerSolicitud(){
 		List<SolicitudVO> list=new ArrayList<SolicitudVO>();
@@ -164,23 +164,16 @@ public class SolicitudDAO {
 		
 		try{
 			Connection con=SolicitudDAO.getConnection();
-			PreparedStatement ps=con.prepareStatement("select * from Solicitudes");
+			PreparedStatement ps=con.prepareStatement("select  Nombre, DNI, Materia, FechaPermiso, Motivo, Id from Solicitudes");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()){
 				SolicitudVO e=new SolicitudVO();
 				e.setNombre(rs.getString(1));
 				e.setDni(rs.getString(2));
-				e.setTelefono(rs.getInt(3));
-				e.setMateria(rs.getString(4));
-				e.setFechaPermiso(rs.getString(5));
-				e.setMotivo(rs.getString(6));
-				e.setFechaEntrega(rs.getString(7));
-				e.setDiaCompleto(rs.getBoolean(8));
-				e.setDiaNoCompleto(rs.getBoolean(9));
-				e.setFirma(rs.getString(10));
-				e.setDenegado(rs.getBoolean(11));
-				e.setConcedido(rs.getBoolean(12));
-				e.setConstancias(rs.getString(13));
+				e.setMateria(rs.getString(3));
+				e.setFechaPermiso(rs.getString(4));
+				e.setMotivo(rs.getString(5));
+				e.setId(rs.getInt(6));
 				list.add(e);
 			}
 			con.close();

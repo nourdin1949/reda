@@ -38,9 +38,9 @@
 
 <p>
 <div class="dia">  
-    <input type="radio" id="opt1" name="DiaCompleto" value="completo" class="dia">
+    <input type="radio" id="opt1" name="Dia" value="completo" class="dia">
     <label for="opt1">Día completo (No es necesario cumplimentar la tabla)<br><br></label>
-    <input type="radio" id="opt2" name="DiaNoCompleto" value="nocompleto" class="dia">
+    <input type="radio" id="opt2" name="Dia" value="nocompleto" class="dia">
     <label for="opt2">Día no completo (Es necesaria la cumplimentación de la tabla)<br>Horas lectivas y grupos afectados</label>
 </div>   
 </p>
@@ -108,12 +108,12 @@
 <br><br>         
 <fieldset>
 <label class="decision"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    <input type="radio" id="Denegado" name="denegado" value="denegado" class="decision">
+    <input type="radio" id="Denegado" name="resolucion" value="denegado" class="decision">
     DENEGADO
   </label>  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <label class="decision">
-    <input type="radio" id="Concedido" name="concedido" value="concedido" class="decision">  
+    <input type="radio" id="Concedido" name="resolucion" value="concedido" class="decision">  
     CONCEDIDO
 </label>    
 </fieldset><br><br>
@@ -129,6 +129,9 @@ Se adjuntan como constancia justificativa los siguientes documentos:
 <br><br>
 <input type="submit" value="Enviar Solicitud">
 <input type="reset" value="Borrar Datos Introducidos">
+<a href="ListarSolicitud.jsp">
+	<input type="button" value="Volver" >
+</a>
 </form>
 </div>
 </body>
